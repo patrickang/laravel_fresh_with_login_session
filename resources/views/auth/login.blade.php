@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <form method="POST" action="/" class="form-signin">
+        <form method="POST" action="{!! URL::to('/'); !!}/" class="form-signin">
             {!! csrf_field() !!}
             <h2 class="form-signin-heading">Please sign in</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
