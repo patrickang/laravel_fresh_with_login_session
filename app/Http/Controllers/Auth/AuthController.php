@@ -118,4 +118,34 @@ class AuthController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Get Register Page
+     * @return view 
+     */
+    public function getRegister()
+    {
+        if (Session::has('_user')) {
+            return redirect('/dashboard');
+        }
+
+        return view('auth.register');
+    }
+
+    public function postRegister(Request $request)
+    {
+        $validator = validator::make($request->input(),
+                [
+                    'username' => 'required|unique:users',
+                    'password' => 'required'
+                ]
+            );
+        if ($validator->fails()) {
+            return redirect('/auth/register')->withErrors($validator->errors())->withInput();
+        }
+
+        User::create(['username' => $request->input('username'), 'password' => md5($request->input('password'))]);
+        Session::put('_user',$request->input('username'));
+        return redirect('/');
+    }
+
 }

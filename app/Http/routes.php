@@ -16,7 +16,10 @@
 // });
 
 Route::get('/','Auth\AuthController@getLogin');
-Route::post('/','Auth\AuthController@postLogin');
+Route::post('/auth/login','Auth\AuthController@postLogin');
+
+Route::get('/auth/register','Auth\AuthController@getRegister');
+Route::post('/auth/register','Auth\AuthController@postRegister');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/dashboard', 'DashboardController@Index');

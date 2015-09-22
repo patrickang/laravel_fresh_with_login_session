@@ -3,22 +3,17 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <form method="POST" action="{!! URL::to('/auth/login'); !!}" class="form-signin">
+        <form method="POST" action="{!! URL::to('/auth/register'); !!}" class="form-signin">
             {!! csrf_field() !!}
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <h2 class="form-signin-heading">Register</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="text" name="username" id="inputEmail" value="{!! old('username'); !!}" class="form-control" placeholder="Email address" autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-                <div class="pull-right">
-                    New user? Register <a href="{!! URL::to('/auth/register'); !!}">here</a>
-                </div>
+            <div class="checkbox pull-right">
+                Already have an account? Click <a href="{!! URL::to('/'); !!}">here</a>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
         </form>
     </div>
 
