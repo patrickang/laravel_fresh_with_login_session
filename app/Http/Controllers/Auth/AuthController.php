@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Session;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -99,8 +100,8 @@ class AuthController extends Controller
         }
         $username = $request->input('username');
         $password = $request->input('password');
-        $user = User::where(['username' => $username, 'password' => md5($password)])->first();
-        if (!$user) {
+        $user = User::where(['username' => $username])->first();
+        if (!$user || ! Hash::check($password,$user->password)) {
             return redirect('/')->withErrors('Invalid Login Credentials')->withInput();
         }
         Session::put('_user',$username);
@@ -143,7 +144,7 @@ class AuthController extends Controller
             return redirect('/auth/register')->withErrors($validator->errors())->withInput();
         }
 
-        User::create(['username' => $request->input('username'), 'password' => md5($request->input('password'))]);
+        User::create(['username' => $request->input('username'), 'password' => Hash::make($request->input('password'))]);
         Session::put('_user',$request->input('username'));
         return redirect('/');
     }
